@@ -18,11 +18,16 @@ namespace Pacman
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Texture2D muro;
+        Texture2D Pacman;
+        byte[,] board=new byte[];
 
         public Game1()
             : base()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferHeight = 800;
+            graphics.PreferredBackBufferWidth = 600;
             Content.RootDirectory = "Content";
         }
 
@@ -47,7 +52,7 @@ namespace Pacman
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            Pacman = Content.Load<Texture2D>("Pacman");
             // TODO: use this.Content to load your game content here
         }
 
@@ -58,6 +63,7 @@ namespace Pacman
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
+            Pacman.Dispose();
         }
 
         /// <summary>
@@ -81,8 +87,10 @@ namespace Pacman
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            GraphicsDevice.Clear(Color.Transparent);
+            spriteBatch.Begin();
+            spriteBatch.Draw(Pacman, new Rectangle(20, 20, 20, 20), Color.White);
+            spriteBatch.End();
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
