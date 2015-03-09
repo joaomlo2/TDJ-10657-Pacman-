@@ -20,15 +20,16 @@ namespace Pacman
         SpriteBatch spriteBatch;
         Texture2D muro;
         Texture2D pacman;
+        SpriteFont font;
         Pacman p,pcoord;
-        int by, bx;
-        byte[,] board = new byte[30, 40];
+        int by, bx,posgrelhaX,posgrelhaY;
+        byte[,] board = new byte[33, 43];
         public Game1()
             : base()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferHeight = 400;
-            graphics.PreferredBackBufferWidth = 300;
+            graphics.PreferredBackBufferHeight = 430;
+            graphics.PreferredBackBufferWidth = 330;
             Content.RootDirectory = "Content";
         }
 
@@ -43,17 +44,16 @@ namespace Pacman
             // TODO: Add your initialization logic here
             p = new Pacman();
             pcoord = new Pacman();
-            pcoord.X = 30;
-            pcoord.Y = 30;
-            for (by = 0; by < 30; by++)
+            pcoord.X = p.Y;
+            pcoord.Y = p.X;
+            for (by = 0; by < 33; by++)
             {
-                for (bx = 0; bx < 40; bx++)
+                for (bx = 0; bx < 43; bx++)
                 {
-                    if (by == 0 || bx == 0 || bx == 39 || by == 29)
+                    if (by == 0 || bx == 0 || bx == 42 || by == 32)
                         board[by, bx] = 9;
                 }
             }
-            board[20, 10] = 9;
                 base.Initialize();
         }
 
@@ -67,6 +67,7 @@ namespace Pacman
             spriteBatch = new SpriteBatch(GraphicsDevice);
             pacman = Content.Load<Texture2D>("Pacman");
             muro = Content.Load<Texture2D>("muro");
+            font = Content.Load<SpriteFont>("MyFont");
             // TODO: use this.Content to load your game content here
         }
 
@@ -90,8 +91,6 @@ namespace Pacman
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            pcoord.X = (p.X+1/10)*10;
-            pcoord.Y = (p.Y+1/10)*10;
                 if (Keyboard.GetState().IsKeyDown(Keys.Up))
                 {
                     if(CanGo_Up(p.X,p.Y))
@@ -116,7 +115,10 @@ namespace Pacman
                         p.X++;
                 }
             // TODO: Add your update logic here
-
+                pcoord.X = (p.X / 10) * 10;
+                pcoord.Y = (p.Y / 10) * 10;
+                posgrelhaX = pcoord.X / 10;
+                posgrelhaY = pcoord.Y / 10;
             base.Update(gameTime);
         }
 
@@ -128,13 +130,13 @@ namespace Pacman
         {
             GraphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin();
+            spriteBatch.Draw(muro, new Rectangle(pcoord.X+5, pcoord.Y+5, 10, 10), Color.White);
             spriteBatch.Draw(pacman, new Rectangle(p.X, p.Y, 10, 10), Color.White);
-            spriteBatch.Draw(muro, new Vector2(pcoord.X, pcoord.Y));
-            for (by = 0; by < 30;by++ )
+            for (by = 0; by < 33;by++ )
             {
-                for(bx=0;bx<40;bx++)
+                for (bx = 0; bx < 43; bx++)
                 {
-                    if(board[by,bx]==9)
+                    if (board[by, bx] == 9)
                         spriteBatch.Draw(muro, new Rectangle(by * 10, bx * 10, 10, 10), Color.White);
                 }
             }
@@ -146,28 +148,28 @@ namespace Pacman
 
         bool CanGo_Up(int pX,int pY)
         {
-            if (pY-1 == 0)
+            if (pY-1 < 15)
                 return false;
             else
                 return true;
         }
         bool CanGo_Down(int pX, int pY)
         {
-            if (pY + 21 > 400)
+            if (pY + 21 > 425)
                 return false;
             else
                 return true;
         }
         bool CanGo_Left(int pX, int pY)
         {
-            if (pX - 1 < 0)
+            if (pX - 1 < 15)
                 return false;
             else
                 return true;
         }
         bool CanGo_Right(int pX, int pY)
         {
-            if (pX + 21 > 300)
+            if (pX + 21 > 325)
                 return false;
             else
                 return true;

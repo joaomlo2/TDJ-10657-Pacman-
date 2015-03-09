@@ -13,8 +13,8 @@ namespace Pacman
 
         public Pacman()
         {
-            X = 10;
-            Y = 10;
+            X = 15;
+            Y = 15;
         }
     }
 }
