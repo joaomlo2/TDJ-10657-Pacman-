@@ -20,10 +20,12 @@ namespace Pacman
         SpriteBatch spriteBatch;
         Texture2D muro;
         Texture2D pacman;
+        Texture2D fantasma;
         Texture2D comida;
         Texture2D super_comida;
         SpriteFont font;
         Pacman p;
+        Fantasma f1, f2, f3, f4;
         int by, bx,score=0;
         byte[,] board = {{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                          {0,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,0},
@@ -86,6 +88,10 @@ namespace Pacman
         {
             // TODO: Add your initialization logic here
             p = new Pacman();
+            f1 = new Fantasma();
+            f2 = new Fantasma();
+            f3 = new Fantasma();
+            f4 = new Fantasma();
                 base.Initialize();
         }
 
@@ -98,6 +104,7 @@ namespace Pacman
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             pacman = Content.Load<Texture2D>("Pacman");
+            fantasma = Content.Load<Texture2D>("fantasma");
             muro = Content.Load<Texture2D>("muro");
             comida = Content.Load<Texture2D>("comida");
             super_comida=Content.Load<Texture2D>("super_comida");
@@ -114,6 +121,9 @@ namespace Pacman
             // TODO: Unload any non ContentManager content here
             pacman.Dispose();
             muro.Dispose();
+            comida.Dispose();
+            super_comida.Dispose();
+            fantasma.Dispose();
         }
 
         /// <summary>
@@ -159,6 +169,9 @@ namespace Pacman
                 }
                 p.boardX = (p.X+5)/10;
                 p.boardY = (p.Y+5)/10;
+                f1.boardX = (f1.X + 5) / 10;
+                f1.boardY = (f1.Y + 5) / 10;
+
             // TODO: Add your update logic here
             base.Update(gameTime);
         }
@@ -186,7 +199,13 @@ namespace Pacman
                 }
             }
             spriteBatch.Draw(pacman, new Vector2(p.X, p.Y), Color.White);
+            spriteBatch.Draw(fantasma, new Vector2(f1.X, f1.Y), Color.Blue);
             spriteBatch.DrawString(font, score.ToString(), new Vector2(350, 50), Color.Red);
+            spriteBatch.DrawString(font, f1.X.ToString(), new Vector2(320, 250), Color.Red);
+            spriteBatch.DrawString(font, f1.Y.ToString(), new Vector2(320, 300), Color.Red);
+            f1.X = p.X;
+            f1.Y = p.Y;
+            spriteBatch.DrawString(font, f1.Esta_Centrado().ToString(), new Vector2(350, 150), Color.Red);
                 spriteBatch.End();
             // TODO: Add your drawing code here
 
