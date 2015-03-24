@@ -44,14 +44,14 @@ namespace Pacman
                          {0,1,1,1,1,1,1,1,0,0,0,1,0,1,0,1,1,0,1,0,1,0,0,0,1,1,1,1,1,1,1,0},
                          {0,0,0,0,1,0,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,0,1,0,0,0,0},
                          {0,1,1,1,1,1,1,1,0,1,1,1,0,1,0,1,1,0,1,0,1,1,1,0,1,1,1,1,1,1,1,0},
-                         {0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0},
+                         {0,1,0,0,0,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,0,0,0,1,0},
                          {0,1,0,0,0,1,0,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,0,1,0,0,0,1,0},
                          {0,1,0,1,1,1,1,1,0,1,0,0,0,0,0,1,1,0,0,0,0,0,1,0,1,1,1,1,1,0,1,0},
                          {0,1,0,1,0,1,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,0,1,0,1,0,1,0,1,0,1,0},
                          {0,1,0,1,0,1,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,0,1,0,1,0,1,0,1,0,1,0},
                          {0,1,0,1,1,1,1,1,0,1,0,0,0,0,0,1,1,0,0,0,0,0,1,0,1,1,1,1,1,0,1,0},
                          {0,1,0,0,0,1,0,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,0,1,0,0,0,1,0},
-                         {0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0},
+                         {0,1,0,0,0,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,0,0,0,1,0},
                          {0,1,1,1,1,1,1,1,0,1,1,1,0,1,0,1,1,0,1,0,1,1,1,0,1,1,1,1,1,1,1,0},
                          {0,0,0,0,1,0,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,0,1,0,0,0,0},
                          {0,1,1,1,1,1,1,1,0,0,0,1,0,1,0,1,1,0,1,0,1,0,0,0,1,1,1,1,1,1,1,0},
@@ -89,9 +89,19 @@ namespace Pacman
             // TODO: Add your initialization logic here
             p = new Pacman();
             f1 = new Fantasma();
+            f1.X = 10;
+            f1.Y = 160;
             f2 = new Fantasma();
+            f2.X = 10;
+            f2.Y = 250;
             f3 = new Fantasma();
+            f3.Direcção = 4;
+            f3.X = 300;
+            f3.Y = 160;
             f4 = new Fantasma();
+            f4.Direcção = 4;
+            f4.X = 300;
+            f4.Y = 250;
                 base.Initialize();
         }
 
@@ -169,9 +179,18 @@ namespace Pacman
                 }
                 p.boardX = (p.X+5)/10;
                 p.boardY = (p.Y+5)/10;
+                f1.AI(board);
                 f1.boardX = (f1.X + 5) / 10;
                 f1.boardY = (f1.Y + 5) / 10;
-
+                f2.AI(board);
+                f2.boardX = (f2.X + 5) / 10;
+                f2.boardY = (f2.Y + 5) / 10;
+                f3.AI(board);
+                f3.boardX = (f3.X + 5) / 10;
+                f3.boardY = (f3.Y + 5) / 10;
+                f4.AI(board);
+                f4.boardX = (f4.X + 5) / 10;
+                f4.boardY = (f4.Y + 5) / 10;
             // TODO: Add your update logic here
             base.Update(gameTime);
         }
@@ -199,13 +218,14 @@ namespace Pacman
                 }
             }
             spriteBatch.Draw(pacman, new Vector2(p.X, p.Y), Color.White);
-            spriteBatch.Draw(fantasma, new Vector2(f1.X, f1.Y), Color.Blue);
+            spriteBatch.Draw(fantasma, new Vector2(f1.X, f1.Y), Color.Red);
+            spriteBatch.Draw(fantasma, new Vector2(f2.X, f2.Y), Color.Yellow);
+            spriteBatch.Draw(fantasma, new Vector2(f3.X, f3.Y), Color.Green);
+            spriteBatch.Draw(fantasma, new Vector2(f4.X, f4.Y), Color.Cyan);
             spriteBatch.DrawString(font, score.ToString(), new Vector2(350, 50), Color.Red);
-            spriteBatch.DrawString(font, f1.X.ToString(), new Vector2(320, 250), Color.Red);
-            spriteBatch.DrawString(font, f1.Y.ToString(), new Vector2(320, 300), Color.Red);
-            f1.X = p.X;
-            f1.Y = p.Y;
-            spriteBatch.DrawString(font, f1.Esta_Centrado().ToString(), new Vector2(350, 150), Color.Red);
+            spriteBatch.DrawString(font, p.X.ToString(), new Vector2(320, 250), Color.Red);
+            spriteBatch.DrawString(font, p.Y.ToString(), new Vector2(320, 300), Color.Red);
+            spriteBatch.DrawString(font, f1.Get_Vizinhança(board).ToString(), new Vector2(325, 150), Color.Red);
                 spriteBatch.End();
             // TODO: Add your drawing code here
 
@@ -237,7 +257,7 @@ namespace Pacman
             {
                 if (board[p.boardY-1,p.boardX] == 0)
                 {
-                    if (p.Y == p.boardY * 10)
+                    if (p.Y <= p.boardY * 10)
                         return false;
                     else
                         return true;
@@ -254,7 +274,7 @@ namespace Pacman
             {
                 if (board[p.boardY+1, p.boardX] == 0)
                 {
-                    if (p.Y == p.boardY * 10)
+                    if (p.Y >= p.boardY * 10)
                         return false;
                     else
                         return true;
@@ -271,7 +291,7 @@ namespace Pacman
             {
                 if (board[p.boardY, p.boardX-1] == 0)
                 {
-                    if (p.X == p.boardX * 10)
+                    if (p.X <= p.boardX * 10)
                         return false;
                     else
                         return true;
@@ -288,7 +308,7 @@ namespace Pacman
             {
                 if (board[p.boardY, p.boardX + 1] == 0)
                 {
-                    if (p.X == p.boardX * 10)
+                    if (p.X >= p.boardX * 10)
                         return false;
                     else
                         return true;

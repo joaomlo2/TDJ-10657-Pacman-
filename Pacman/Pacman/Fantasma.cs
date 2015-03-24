@@ -57,7 +57,7 @@ namespace Pacman
         }
         public bool Esta_Centrado()
         {
-            if (X+5 == ((boardX * 10) + 5) || Y+5 == ((boardY * 10) + 5))
+            if (X+5 == ((boardX * 10) + 5) && Y+5 == ((boardY * 10) + 5))
             {
                 return true;
             }
@@ -66,58 +66,291 @@ namespace Pacman
                 return false;
             }
         }
-        public int AI(byte[,] board)
+        public void AI(byte[,] board)
         {
-            int vizinhança = Get_Vizinhança(board);
-            if (vizinhança == 21 && Esta_Centrado())
+            Movimento();
+            if (Esta_Centrado())
             {
-                if (Direcção == 1)
+                if (Get_Vizinhança(board) == 21)
                 {
-                    Direcção = 2;
+                    if(Direcção==4)
+                    {
+                        Direcção=3;
+                    }
+                    if(Direcção==1)
+                    {
+                        Direcção = 2;
+                    }
                 }
-                else
-                    Direcção = 3;
-            }
-            else
-            {
-                if(vizinhança == 22 && Esta_Centrado())
+                if (Get_Vizinhança(board) == 22)
                 {
+                    if (Direcção == 2)
+                    {
+                        Direcção = 3;
+                    }
                     if (Direcção == 1)
                     {
                         Direcção = 4;
                     }
-                    else
+                }
+                if (Get_Vizinhança(board) == 23)
+                {
+                    if (Direcção == 4)
                     {
-                        Direcção = 3;
+                        Direcção = 1;
+                    }
+                    if (Direcção == 3)
+                    {
+                        Direcção = 2;
                     }
                 }
-                else
+                if (Get_Vizinhança(board) == 24)
                 {
-                    if(vizinhança == 23 && Esta_Centrado())
+                    if (Direcção == 2)
                     {
-                        if (Direcção == 4)
+                        Direcção = 1;
+                    }
+                    if (Direcção == 3)
+                    {
+                        Direcção = 4;
+                    }
+                }
+                if (Get_Vizinhança(board) == 31)
+                {
+                    if(Direcção==2)
+                    {
+                        int aux = new Random().Next(1, 3);
+                        if(aux==1)
+                        {
+                            Direcção = 3;
+                        }
+                        else
                         {
                             Direcção = 2;
+                        }
+                    }
+                    if(Direcção==1)
+                    {
+                        int aux = new Random().Next(1, 3);
+                        if (aux == 1)
+                        {
+                            Direcção = 4;
+                        }
+                        else
+                        {
+                            Direcção = 2;
+                        }
+                    }
+                    if (Direcção == 4)
+                    {
+                        int aux = new Random().Next(1, 3);
+                        if (aux == 1)
+                        {
+                            Direcção = 4;
+                        }
+                        else
+                        {
+                            Direcção = 3;
+                        }
+                    }
+                }
+                if (Get_Vizinhança(board) == 32)
+                {
+                    if (Direcção == 2)
+                    {
+                        int aux = new Random().Next(1, 3);
+                        if (aux == 1)
+                        {
+                            Direcção = 1;
+                        }
+                        else
+                        {
+                            Direcção = 2;
+                        }
+                    }
+                    if (Direcção == 3)
+                    {
+                        int aux = new Random().Next(1, 3);
+                        if (aux == 1)
+                        {
+                            Direcção = 4;
+                        }
+                        else
+                        {
+                            Direcção = 2;
+                        }
+                    }
+                    if (Direcção == 4)
+                    {
+                        int aux = new Random().Next(1, 3);
+                        if (aux == 1)
+                        {
+                            Direcção = 4;
                         }
                         else
                         {
                             Direcção = 1;
                         }
                     }
-                    else
+                }
+                if (Get_Vizinhança(board) == 33)
+                {
+                    if (Direcção == 3)
                     {
-                        if(vizinhança==24 && Esta_Centrado())
+                        int aux = new Random().Next(1, 3);
+                        if (aux == 1)
                         {
-                            if (Direcção == 2)
-                                Direcção = 1;
+                            Direcção = 3;
+                        }
+                        else
+                        {
+                            Direcção = 2;
+                        }
+                    }
+                    if (Direcção == 1)
+                    {
+                        int aux = new Random().Next(1, 3);
+                        if (aux == 1)
+                        {
+                            Direcção = 1;
+                        }
+                        else
+                        {
+                            Direcção = 2;
+                        }
+                    }
+                    if (Direcção == 4)
+                    {
+                        int aux = new Random().Next(1, 3);
+                        if (aux == 1)
+                        {
+                            Direcção = 1;
+                        }
+                        else
+                        {
+                            Direcção = 3;
+                        }
+                    }
+                }
+                if (Get_Vizinhança(board) == 34)
+                {
+                    if (Direcção == 2)
+                    {
+                        int aux = new Random().Next(1, 3);
+                        if (aux == 1)
+                        {
+                            Direcção = 3;
+                        }
+                        else
+                        {
+                            Direcção = 1;
+                        }
+                    }
+                    if (Direcção == 1)
+                    {
+                        int aux = new Random().Next(1, 3);
+                        if (aux == 1)
+                        {
+                            Direcção = 4;
+                        }
+                        else
+                        {
+                            Direcção = 1;
+                        }
+                    }
+                    if (Direcção == 3)
+                    {
+                        int aux = new Random().Next(1, 3);
+                        if (aux == 1)
+                        {
+                            Direcção = 4;
+                        }
+                        else
+                        {
+                            Direcção = 1;
+                        }
+                    }
+                }
+                if (Get_Vizinhança(board) == 4)
+                {
+                    if(Direcção==1)
+                    {
+                        int aux = new Random().Next(1, 4);
+                        if(aux==1)
+                        {
+                            Direcção = 1;
+                        }
+                        else
+                        {
+                            if(aux==2)
+                            {
+                                Direcção = 2;
+                            }
                             else
+                            {
                                 Direcção = 4;
+                            }
+                        }
+                    }
+                    if (Direcção == 2)
+                    {
+                        int aux = new Random().Next(1, 4);
+                        if (aux == 1)
+                        {
+                            Direcção = 1;
+                        }
+                        else
+                        {
+                            if (aux == 2)
+                            {
+                                Direcção = 2;
+                            }
+                            else
+                            {
+                                Direcção = 3;
+                            }
+                        }
+                    }
+                    if (Direcção == 3)
+                    {
+                        int aux = new Random().Next(1, 4);
+                        if (aux == 1)
+                        {
+                            Direcção = 4;
+                        }
+                        else
+                        {
+                            if (aux == 2)
+                            {
+                                Direcção = 2;
+                            }
+                            else
+                            {
+                                Direcção = 3;
+                            }
+                        }
+                    }
+                    if (Direcção == 4)
+                    {
+                        int aux = new Random().Next(1, 4);
+                        if (aux == 1)
+                        {
+                            Direcção = 1;
+                        }
+                        else
+                        {
+                            if (aux == 2)
+                            {
+                                Direcção = 4;
+                            }
+                            else
+                            {
+                                Direcção = 3;
+                            }
                         }
                     }
                 }
             }
-
-            return Direcção;
         }
     }
 }
